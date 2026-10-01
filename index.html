@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RAAL Grade 6 Mathematics Quiz Bee</title>
+<style>.solution{margin-top:10px;padding:12px;border-left:4px solid #d97706;background:#fffaf0;border-radius:8px}
+
+:root{--bg:#f4f8fb;--card:#fff;--ink:#152238;--muted:#667085;--blue:#2563eb;--green:#15803d;--red:#b91c1c;--line:#dbe3ee}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#eef6ff,#f9fcff);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+.wrap{max-width:980px;margin:auto;padding:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:24px;box-shadow:0 12px 32px rgba(24,50,80,.08)}
+.hidden{display:none}.login{max-width:520px;margin:6vh auto}.brand{font-weight:900}.logo{font-size:1.7rem}.muted{color:var(--muted)}h1{margin:8px 0}.code,.select{width:100%;padding:13px;border:2px solid var(--line);border-radius:13px;background:#fff}.code{text-transform:uppercase;letter-spacing:1px}.btn{border:0;border-radius:13px;padding:12px 18px;font-weight:800;cursor:pointer;background:var(--blue);color:#fff}.btn.secondary{background:#eaf0f8;color:var(--ink)}.err{color:var(--red);font-weight:700;margin-top:10px}.header{display:flex;justify-content:space-between;gap:12px;align-items:center}.badge{display:inline-block;background:#e9f0ff;color:#1d4ed8;padding:6px 10px;border-radius:999px;font-weight:800;font-size:.82rem}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.question{font-size:1.25rem;font-weight:800;line-height:1.45;margin:18px 0}.option{width:100%;min-height:62px;text-align:left;padding:14px;border:2px solid var(--line);border-radius:14px;background:#fff;cursor:pointer}.option.correct{border-color:#22c55e;background:#ecfdf5}.option.wrong{border-color:#ef4444;background:#fef2f2}.progress{height:10px;background:#e8edf5;border-radius:99px;overflow:hidden;margin:15px 0}.progress div{height:100%;width:0;background:var(--blue)}.feedback{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:#f8fafc;line-height:1.5}.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.score{text-align:center;font-size:3rem;font-weight:900;color:var(--blue)}.review{padding:14px 0;border-top:1px solid var(--line)}.small{font-size:.9rem;color:var(--muted)}
+.marathon-box{margin-top:18px;padding:15px;border:2px solid #f59e0b;border-radius:16px;background:#fffaf0}
+.marathon-toggle{display:flex;align-items:center;gap:10px;font-weight:900;cursor:pointer}
+.marathon-toggle input{width:20px;height:20px;accent-color:#f59e0b}
+.topic-box{margin-top:16px;padding:15px;border:1px solid var(--line);border-radius:16px;background:#f8fbff}
+.topic-btn{width:100%;margin-top:7px;text-align:left;padding:14px 16px;border:2px solid var(--line);border-radius:13px;background:#fff;color:var(--ink);font-weight:800;cursor:pointer}
+.topic-btn:hover{border-color:#93b4ff}
+.selected-topic{margin-top:8px;font-weight:800;color:var(--blue)}
+.topic-panel{margin-top:12px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.topic-panel-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px}
+.close-btn{border:0;background:#eef2f7;border-radius:10px;width:36px;height:36px;font-size:24px;line-height:1;cursor:pointer;color:var(--ink)}
+.topic-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.topic-choice{border:2px solid var(--line);background:#fff;border-radius:12px;padding:11px;text-align:left;cursor:pointer;font-weight:750;color:var(--ink)}
+.topic-choice:hover{border-color:#93b4ff}
+.topic-choice.active{border-color:var(--blue);background:#eef5ff;color:#1d4ed8}
+.topic-count{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-top:3px}
+@media(max-width:700px){.topic-list{grid-template-columns:1fr}}
+@media(max-width:700px){.wrap{padding:10px}.card{padding:18px;border-radius:18px}.grid{grid-template-columns:1fr}.question{font-size:1.1rem}.header{align-items:flex-start}.controls .btn{width:100%}.login{margin:3vh auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section id="login" class="card login">
+<div class="brand logo">RAAL Educational Resources</div><div class="muted">GRADE 6 MATHEMATICS QUIZ BEE</div>
+<h1>Unlock the Game</h1><p class="muted">Enter your personal access code before playing.</p>
+<input id="code" class="code" placeholder="R6MATH-XXXX-XXXX" autocomplete="off">
+<button id="unlock" class="btn" style="margin-top:12px;width:100%">Unlock Game</button>
+<div id="msg" class="err"></div>
+</section>
+<section id="menu" class="card hidden">
+<div class="header"><div><div class="brand">RAAL Grade 6 Mathematics Quiz Bee</div><div class="muted">650 BOW-aligned audited questions</div></div><span class="badge">UNLOCKED</span></div>
+<div class="marathon-box">
+<label class="marathon-toggle"><input type="checkbox" id="marathon"> <span>🏃 Marathon Mode</span></label>
+<div class="small">Answer all 650 Grade 6 Mathematics questions in one continuous game.</div>
+</div>
+<div class="grid" style="margin-top:18px">
+<label class="small">Mode<select id="mode" class="select"><option value="practice">Practice — instant feedback</option><option value="quiz">Quiz Bee — results at end</option></select></label>
+<label class="small">Difficulty<select id="difficulty" class="select"><option>Mixed</option><option>Easy</option><option>Average</option><option>Difficult</option></select></label>
+<label class="small">Questions<select id="count" class="select"><option>10</option><option>20</option><option>30</option><option>50</option><option>100</option></select></label>
+<label class="small">Timer<select id="timer" class="select"><option value="0">No timer</option><option value="15">15 seconds</option><option value="20">20 seconds</option><option value="30">30 seconds</option><option value="45">45 seconds</option></select></label>
+</div>
+
+<div class="topic-box">
+  <div class="small">Review focus</div>
+  <button id="topicButton" class="topic-btn">📚 Choose a Topic</button>
+  <div id="selectedTopic" class="selected-topic">All Topics</div>
+</div>
+
+<div id="topicPanel" class="topic-panel hidden">
+  <div class="topic-panel-head">
+    <div><strong>Choose a Topic to Review</strong><div class="small">Select a BOW-aligned topic, or review everything.</div></div>
+    <button id="closeTopics" class="close-btn" aria-label="Close topics">×</button>
+  </div>
+  <div id="topicList" class="topic-list"></div>
+</div>
+
+<button id="start" class="btn" style="margin-top:18px;width:100%">Start Quiz Bee</button>
+</section>
+<section id="game" class="card hidden">
+<div class="header"><div><span id="round" class="badge"></span><div id="counter" class="muted"></div></div><span id="clock" class="badge"></span></div>
+<div class="progress"><div id="bar"></div></div><div id="question" class="question"></div><div id="options" class="grid"></div>
+<div id="feedback" class="feedback hidden"></div>
+<div class="controls"><button id="next" class="btn" disabled>Next Question</button><button id="quit" class="btn secondary">End Game</button></div>
+</section>
+<section id="results" class="card hidden">
+<div class="brand">Quiz Complete</div><div id="score" class="score"></div><div id="summary" class="muted"></div>
+<div class="controls"><button id="again" class="btn">Play Again</button><button id="reviewBtn" class="btn secondary">Review Answers</button></div>
+<div id="review"></div>
+</section>
+</div>
+<script src="data/access.js"></script><script src="data/questions.js"></script>
+<script>
+const $=id=>document.getElementById(id);let quiz=[],idx=0,score=0,done=false,timerId=null,results=[],selectedTopic="All Topics";
+function norm(s){return(s||"").trim().toUpperCase().replace(/\s+/g,"")}
+function valid(s){return(window.RAAL_ACCESS_CODES||[]).map(norm).includes(norm(s))}
+function unlock(){if(valid($("code").value)){localStorage.setItem("raal6math_unlocked","1");$("login").classList.add("hidden");$("menu").classList.remove("hidden");$("msg").textContent=""}else $("msg").textContent="Invalid access code. Please check your code and try again."}
+$("unlock").onclick=unlock;$("code").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
+if(localStorage.getItem("raal6math_unlocked")==="1"){$("login").classList.add("hidden");$("menu").classList.remove("hidden")}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+$("marathon").addEventListener("change",()=>{
+  const on=$("marathon").checked;
+  $("difficulty").disabled=on;
+  $("count").disabled=on;
+  $("topicButton").disabled=on;
+  $("topicButton").style.opacity=on?"0.55":"1";
+  $("selectedTopic").textContent=on?"All 650 Questions":selectedTopic;
+  if(on)$("topicPanel").classList.add("hidden");
+});
+
+$("start").onclick=()=>{
+  const marathon=$("marathon").checked;
+  const d=$("difficulty").value;
+  let pool;
+
+  if(marathon){
+    // Marathon always means the complete audited 650-question bank.
+    pool=window.RAAL_QUESTIONS.slice();
+  }else{
+    pool=window.RAAL_QUESTIONS.filter(q=>
+      (selectedTopic==="All Topics"||q.topic===selectedTopic) &&
+      (d==="Mixed"||q.difficulty===d)
+    );
+  }
+
+  if(!pool.length){
+    alert("No questions match this topic and difficulty combination. Choose another difficulty or topic.");
+    return;
+  }
+
+  const requested=Number($("count").value);
+  quiz=shuffle(pool).slice(0,marathon ? pool.length : Math.min(requested,pool.length));
+  idx=0;score=0;results=[];
+  $("menu").classList.add("hidden");
+  $("results").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  show();
+}
+function getTopicCounts(){
+  const counts={};
+  (window.RAAL_QUESTIONS||[]).forEach(q=>counts[q.topic]=(counts[q.topic]||0)+1);
+  return counts;
+}
+function renderTopics(){
+  const counts=getTopicCounts(), topics=Object.keys(counts).sort(), list=$("topicList");
+  list.innerHTML="";
+  const all=document.createElement("button");
+  all.className="topic-choice"+(selectedTopic==="All Topics"?" active":"");
+  all.innerHTML=`All Topics<span class="topic-count">${window.RAAL_QUESTIONS.length} questions</span>`;
+  all.onclick=()=>chooseTopic("All Topics");
+  list.appendChild(all);
+  topics.forEach(topic=>{
+    const b=document.createElement("button");
+    b.className="topic-choice"+(selectedTopic===topic?" active":"");
+    b.innerHTML=`${topic}<span class="topic-count">${counts[topic]} questions</span>`;
+    b.onclick=()=>chooseTopic(topic);
+    list.appendChild(b);
+  });
+}
+function chooseTopic(topic){
+  selectedTopic=topic;
+  $("selectedTopic").textContent=topic;
+  $("topicPanel").classList.add("hidden");
+  renderTopics();
+}
+$("topicButton").onclick=()=>{
+  renderTopics();
+  $("topicPanel").classList.toggle("hidden");
+};
+$("closeTopics").onclick=()=>$("topicPanel").classList.add("hidden");
+
+function show(){clearInterval(timerId);done=false;let q=quiz[idx];$("round").textContent=($("marathon").checked?"MARATHON":(selectedTopic==="All Topics"?q.quiz_bee_round:selectedTopic)).toUpperCase();$("counter").textContent=`Question ${idx+1} of ${quiz.length}`;$("bar").style.width=(idx/quiz.length*100)+"%";$("question").textContent=q.question;$("feedback").classList.add("hidden");$("next").disabled=true;
+let opts=shuffle([{t:q.choice_a,k:"A"},{t:q.choice_b,k:"B"},{t:q.choice_c,k:"C"},{t:q.choice_d,k:"D"}]);$("options").innerHTML="";opts.forEach(o=>{let b=document.createElement("button");b.className="option";b.textContent=o.t;b.onclick=()=>answer(o.k,b);$("options").appendChild(b)});
+let sec=Number($("timer").value);$("clock").textContent=sec?sec+"s":"No timer";if(sec){let t=sec;timerId=setInterval(()=>{t--;$("clock").textContent=t+"s";if(t<=0){clearInterval(timerId);answer(null,null)}},1000)}}
+function answer(key,clicked){if(done)return;done=true;clearInterval(timerId);let q=quiz[idx],ok=key===q.correct_answer;if(ok)score++;results.push({q,key,ok});[...$("options").children].forEach(b=>{let correctText=q["choice_"+q.correct_answer.toLowerCase()];if(b.textContent===correctText)b.classList.add("correct");if(clicked&&b===clicked&&!ok)b.classList.add("wrong")});if($("mode").value==="practice"){$("feedback").innerHTML=ok?`<b>Correct!</b><br>${q.rationale}`:`<b>${key===null?"Time's up.":"Not quite."}</b> Correct answer: <b>${q["choice_"+q.correct_answer.toLowerCase()]}</b><br>${q.rationale}<div class="solution"><b>Complete Mathematical Solution</b><br>${q.solution}</div>`;$("feedback").classList.remove("hidden")}$("next").disabled=false}
+$("next").onclick=()=>{if(idx<quiz.length-1){idx++;show()}else finish()};$("quit").onclick=finish;
+function finish(){clearInterval(timerId);$("game").classList.add("hidden");$("results").classList.remove("hidden");let p=Math.round(score/quiz.length*100);$("score").textContent=`${score} / ${quiz.length} (${p}%)`;$("summary").textContent=p>=80?"Strong performance. Review the rationales and keep challenging yourself.":p>=60?"Good progress. Review missed concepts and try again.":"Keep practicing. Use the rationales to strengthen your understanding.";$("review").innerHTML=""}
+$("again").onclick=()=>{$("results").classList.add("hidden");$("menu").classList.remove("hidden")};$("reviewBtn").onclick=()=>{$("review").innerHTML=results.map((r,i)=>`<div class="review"><b>${i+1}. ${r.q.question}</b><br>${r.ok?"✅ Correct":"❌ Incorrect"}<br><span class="small">Correct answer: ${r.q["choice_"+r.q.correct_answer.toLowerCase()]}</span><br>${r.q.rationale}<div class="solution"><b>Complete Mathematical Solution</b><br>${r.q.solution}</div></div>`).join("")}
+</script>
+</body>
+</html>
